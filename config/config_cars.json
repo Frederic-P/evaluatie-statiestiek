@@ -1,0 +1,6 @@
+{
+    "brand":  "Volvo", 
+    "data_directory": "data/rawdata", 
+    "sourcefile": "cars.csv", 
+    "datamode": "full"
+}
