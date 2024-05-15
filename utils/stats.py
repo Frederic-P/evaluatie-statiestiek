@@ -1,4 +1,6 @@
 import numpy as np
+import pandas as pd
+import random
 
 def outlier_remover(df, column, iqr = 1.5, upper = True, lower = True):
     """ remove the outliers from a given Pandas Dataframe (df)
@@ -66,3 +68,45 @@ def calculate_bins_for_even_k(min, max, max_bins_allowed = 90):
     new_max = (max // factor +1) *factor
     return(int(bins_required/bin_correction)+1, int(bin_correction), new_min, new_max)
 
+
+def bootstrap(data, rounds):
+    """Takes a pandas series as data and makes rounds (n) bootstraps of it
+    """
+    avgs = []
+    resample_length = len(data)
+    for _ in range(rounds):
+        # Generate a bootstrap sample with replacement
+        bootstrap_sample = np.random.choice(data, size=resample_length, replace=True)
+        # Calculate the mean of the bootstrap sample
+        avg = np.mean(bootstrap_sample)
+        # Store the mean of the bootstrap sample
+        avgs.append(avg)
+    return avgs
+
+def get_bounds_for_ci(data, alpha):
+    """
+    data is a list of datapoints
+    alpha is the significance level expressed as a float between 0 and 1
+    returns the confidence interval as a tuple with the boundaries for
+    data, for an alpha-significance level.
+    i.e. returns the values that contain 1-alpha% of the data in the 
+    middlesection of the histogram with alhpa/2 % of the data in the
+    left and right tail.
+    """
+    lower_bound = np.quantile(data, alpha / 2)
+    upper_bound = np.quantile(data, 1 - alpha / 2)
+    return lower_bound, upper_bound
+
+
+def find_intersect(low, high, hits, target):
+    """returns the Confidence Interval (hits (type=list)) for a given
+    garget(type=int/float) where the target is between the upper and 
+    lower bounds (low and high).
+    Low and high should contain the lower and upper bounds of your
+    confidence intervals for a given hit.
+    low, high and hits should have an equal number of elements.
+    """
+    for i in range(len(low)):
+        if low[i] <= target <= high[i]:
+            return hits[i]
+    return None 

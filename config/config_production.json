@@ -1,0 +1,5 @@
+{
+    "data_dir": "data/raw_data/full/data_productie",
+    "masterfile": "master_data.json", 
+    "dailydirname": "daily_production" 
+}
