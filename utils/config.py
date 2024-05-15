@@ -18,7 +18,7 @@ def get_root_dir():
 
 
 
-def read(dir_to_config): 
+def readconfig(dir_to_config): 
     """reads a json config file and returns it as a kv dictionary"""
     with open(dir_to_config) as settings_file:
         settings = json.load(settings_file)
