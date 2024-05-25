@@ -69,7 +69,7 @@ Production related data should be deployed in data/rawdata/full/data_productie.
 2) Install and activate the virtual environment (environment.yaml). For this you'll need to have [Anaconda](https://docs.anaconda.com/free/navigator/index.html) installed.
 - Open an Anaconda PowerShell prompt and use `cd` to navigate to the directory where you cloned this repository to. The commands below assume you are in the root-directory of the codebase. To install the environment use: `conda env create -f environment.yaml` Wait for the installation process to complete. You'll know if the process is complete when the Anaconda PowerShell shows you the commands to activate and deactivate the newly installed environemnt.
 3) Deploy the data files you have in the folders as described in the **Data** section.
-- once installed type: `conda activate env_evalutatie_statistiek` to activate this environment; you need to use this Kernel for all modules to work. 
+- once installed type: `conda activate env_evaluatie_statistiek` to activate this environment; you need to use this Kernel for all modules to work. 
 - once activated open the notebook using the `jupyter notebook` command and open the notebooks you are interested in in the browserwindow that pops up. 
 4) Run the notebook
 5) Play with all the cells
