@@ -1,6 +1,9 @@
+"""
+Utilities for basic statistical operations."""
+
 import numpy as np
 import pandas as pd
-import random
+#import random
 import matplotlib.pyplot as plt
 
 
@@ -100,20 +103,6 @@ def get_bounds_for_ci(data, alpha):
     return lower_bound, upper_bound
 
 
-def find_intersect(low, high, hits, target):
-    """returns the Confidence Interval (hits (type=list)) for a given
-    garget(type=int/float) where the target is between the upper and 
-    lower bounds (low and high).
-    Low and high should contain the lower and upper bounds of your
-    confidence intervals for a given hit.
-    low, high and hits should have an equal number of elements.
-    """
-    for i in range(len(low)):
-        if low[i] <= target <= high[i]:
-            return hits[i]
-    return None 
-
-
 def moving_mean_for_clt(data, step, simamount, replace):
     """
         Takes four arguments:
@@ -133,7 +122,7 @@ def moving_mean_for_clt(data, step, simamount, replace):
     for sim in range(simamount):
         subsample_days = []
         subsample_means = []
-        for i in range (0, len(data), int(step)):
+        for i in range (1, len(data), int(step)):
             #we'll not use replacement for sampling.
             subsample = np.random.choice(data, i, replace=replace)
             subsample_days.append(i)
@@ -145,10 +134,7 @@ def moving_mean_for_clt(data, step, simamount, replace):
     plt.xlabel('Days in subsample')
     plt.ylabel('Mean of subsample')
     plt.legend()
-    if replace:
-        extra = ' (with replacement)'
-    else:
-        extra = ' (without replacement)'
+    extra = ' (with replacement)' if replace else ' (without replacement)'
     title = f'The mean of the subsample {extra} converges to the mean of a larger set as sample size increases.'
     plt.title(title)
     plt.tight_layout()

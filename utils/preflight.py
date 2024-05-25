@@ -1,8 +1,13 @@
+"""
+Performs basic preflight checks to give some quick metrics on the dataframe
+you feed into the preflichtchecks main function.
+"""
+
 import pandas as pd
 
 def count_outliers(q1, q3, series):
     """
-        TODO: docstring
+        Counts the amount of outliers which are in a given column.
     """
     iqr = q3 - q1
     lower_bound = q1 - 1.5 * iqr
@@ -13,7 +18,8 @@ def count_outliers(q1, q3, series):
 
 def preflightchecks(df):
     """
-        TODO: docstring
+        main function, should be called with a pandas dataframe and will perform all the checks.
+        it returns a new dataframe with all the results of your checks.
     """
     checks_data = []
     for column in df.columns:

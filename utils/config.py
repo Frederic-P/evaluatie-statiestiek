@@ -1,3 +1,6 @@
+"""
+Utilities needed to read configuration file and load it into the notebooks
+"""
 import json
 import os
 #utilities to read configuration: 
@@ -14,13 +17,13 @@ def get_root_dir():
         'notebooks' in root_dir_contents):
         return root_dir
     else:
-        raise Exception("Root directory not found!")
+        raise FileNotFoundError("Root directory not found!")
 
 
 
 def readconfig(dir_to_config): 
     """reads a json config file and returns it as a kv dictionary"""
-    with open(dir_to_config) as settings_file:
+    with open(dir_to_config, encoding='utf8') as settings_file:
         settings = json.load(settings_file)
         return settings
     

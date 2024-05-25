@@ -1,10 +1,10 @@
-import pandas as pd
-import os
-
 """
 basic methods for the cars dataset, focussed on answering the 
 questios from the notebook.
 """
+import pandas as pd
+import os
+
 
 #data extraction: 
 def extract_brand(df, brandname):
@@ -47,7 +47,7 @@ def load_data(filepath):
     """
     #check if file exists: 
     if(not os.path.exists(filepath)): 
-        raise  Exception(
+        raise  FileNotFoundError(
             "Your configurationfile mentions a non-existing dataset.\
             Check if the file exists and is refrerenced correctly."
             )

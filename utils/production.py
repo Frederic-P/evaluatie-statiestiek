@@ -1,6 +1,11 @@
+"""
+Utilities required for the production related dataset. 
+"""
+
+
 import os
-import pandas as pd
 import json
+import pandas as pd     #pylint keeps complaining about this one, but pandas is needded here
 import numpy as np
 from scipy.stats import *
 
@@ -42,7 +47,7 @@ def simulate(n_days, failurerate, predictions):
         #get the chance of total failure at facility:
         chance_of_catastrophe = np.random.rand() 
         if failurerate - chance_of_catastrophe > delta:
-            #total fuck up :)
+            #total screw up :)
             production.append(0)
         else:
             mean, stdev = predictions
@@ -94,12 +99,12 @@ def load_json_datafiles(rootdir, colname = 'facility'):
         #print(location)
         locationdir = os.path.join(rootdir, location)
         for file in os.listdir(locationdir):
-            with open(os.path.join(locationdir, file)) as filecontent:
+            with open(os.path.join(locationdir, file), encoding='utf8') as filecontent:
                 filedata = json.load(filecontent)
                 #keep track of where the datapoint comes from 
                 #in case weird stuff happens.
                 filedata['sourcefile'] = file
-                filedata['facility'] = location
+                filedata[colname] = location
                 dataset.append(filedata)
     return dataset
     # for r,d,f in os.walk(rootdir): 

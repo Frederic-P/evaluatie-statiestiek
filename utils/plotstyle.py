@@ -1,3 +1,7 @@
+"""
+Utility to load a uniform style in multiple notebooks
+"""
+
 import matplotlib.pyplot as plt
 
 def initialize_custom_style():
