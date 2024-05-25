@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import random
+import matplotlib.pyplot as plt
+
 
 def outlier_remover(df, column, iqr = 1.5, upper = True, lower = True):
     """ remove the outliers from a given Pandas Dataframe (df)
@@ -110,3 +112,43 @@ def find_intersect(low, high, hits, target):
         if low[i] <= target <= high[i]:
             return hits[i]
     return None 
+
+
+def moving_mean_for_clt(data, step, simamount, replace):
+    """
+        Takes four arguments:
+        data = flat list of numerical data 
+        step = INT the interval to be used in a range 
+        simamount = INT the amount of simulations to run
+        replace = BOOL should repalcement be used when making subsamples or not
+
+        This function will return a plot with 'simamount' of simulations of an 
+        ever growing subsample taken from the 'data' parameter; generating the 
+        subsample can be done with or without using 'replace'ment. To speed things
+        up you can set a step-amount so that it only generates a simulation for every
+        'step' day. 
+
+        In the same plot horizontal line is plotted which represents the mean of 'data'
+    """
+    for sim in range(simamount):
+        subsample_days = []
+        subsample_means = []
+        for i in range (0, len(data), int(step)):
+            #we'll not use replacement for sampling.
+            subsample = np.random.choice(data, i, replace=replace)
+            subsample_days.append(i)
+            subsample_means.append(np.mean(subsample))
+        plt.plot(subsample_days, subsample_means, label=f'forecast {sim+1}')
+    plt.axhline(np.mean(data), color='orange', linestyle='--', label='Observed Mean')
+    #plt.xscale('log')
+    plt.xlim(0)
+    plt.xlabel('Days in subsample')
+    plt.ylabel('Mean of subsample')
+    plt.legend()
+    if replace:
+        extra = ' (with replacement)'
+    else:
+        extra = ' (without replacement)'
+    title = f'The mean of the subsample {extra} converges to the mean of a larger set as sample size increases.'
+    plt.title(title)
+    plt.tight_layout()

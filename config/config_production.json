@@ -1,5 +1,6 @@
 {
     "data_dir": "data/rawdata/full/data_productie",
     "masterfile": "master_data.json", 
-    "dailydirname": "daily_production" 
+    "dailydirname": "daily_production",
+    "histbins": 50
 }
